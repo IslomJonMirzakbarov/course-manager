@@ -11,6 +11,15 @@ const courseSchema = new mongoose.Schema({
   isPublished: Boolean,
 });
 
+// creating class model and its instance
+const Course = mongoose.model("Course", courseSchema);
+const course = new Course({
+  name: "Nodejs",
+  author: "Islom",
+  tags: ["nodejs", "backend"],
+  isPublished: true,
+});
+
 mongoose
   .connect(uri)
   .then(() => console.log("Connected to MongoDb..."))
