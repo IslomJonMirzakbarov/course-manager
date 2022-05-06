@@ -42,8 +42,11 @@ const getCourses = async () => {
   // in
   // nin (not in)
 
+  // logical operators
+
   const courses = await Course
-    .find({ author: "Islom", isPublished: true })
+    .find()
+    .or([{author: 'Islom'}, {isPublished: true}])
     // .find({price: {$in: [10, 14, 20]}})
     .limit(10)
     .sort({ name: 1 })
