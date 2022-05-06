@@ -32,7 +32,19 @@ const createCourse = async () => {
 };
 
 const getCourses = async () => {
-  const courses = await Course.find({ author: "Islom", isPublished: true })
+  // comparison operators:
+  // eq (equal)
+  // ne (not equal)
+  // gt (greater than)
+  // lt (less than)
+  // gte (greater than or equal)
+  // lte (less than or equal)
+  // in
+  // nin (not in)
+
+  const courses = await Course
+    .find({ author: "Islom", isPublished: true })
+    // .find({price: {$in: [10, 14, 20]}})
     .limit(10)
     .sort({ name: 1 })
     .select({ name: 1, tags: 1 });
