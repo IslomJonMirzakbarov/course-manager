@@ -1,15 +1,9 @@
-import { Application, Request, Response } from "express";
+const mongoose = require("mongoose");
 
-const express = require('express');
+const uri =
+  "mongodb+srv://islom:islom123@mosh-node-app.6twhk.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 
-// init app & middleware
-const app: Application = express();
-
-app.listen(3000, () => {
-  console.log('app is listening on port 3000');
-});
-
-// routes
-app.get('/books', (req: Request, res: Response) => {
-  res.json({msg: 'hi node and mongodb!'});
-})
+mongoose
+  .connect(uri)
+  .then(() => console.log("Connected to MongoDb...")) 
+  .catch((err: any) => console.log(err));
