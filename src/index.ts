@@ -32,25 +32,16 @@ const createCourse = async () => {
 };
 
 const getCourses = async () => {
-  // comparison operators:
-  // eq (equal)
-  // ne (not equal)
-  // gt (greater than)
-  // lt (less than)
-  // gte (greater than or equal)
-  // lte (less than or equal)
-  // in
-  // nin (not in)
+  // pagination
+  const pageNumber = 2;
+  const pageSize = 10;
+  // /api/courses?pageNumber=2?pageSize=10
 
-  // logical operators
-
-  const courses = await Course
-    .find()
-    .or([{author: 'Islom'}, {isPublished: true}])
-    // .find({price: {$in: [10, 14, 20]}})
-    .limit(10)
+  const courses = await Course.find({ author: /.*Islom.*/i })
+    .skip((pageNumber - 1) * pageSize)
+    .limit(pageSize)
     .sort({ name: 1 })
-    .select({ name: 1, tags: 1 });
+    .count();
   console.log(courses);
 };
 
