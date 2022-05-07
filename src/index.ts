@@ -20,6 +20,9 @@ const courseSchema = new mongoose.Schema({
     type: String,
     required: true,
     enum: ["web", "mobile", "network"],
+    lowercase: true,
+    // uppsercase: true,
+    trim: true,
   },
   author: String,
   tags: {
@@ -38,6 +41,8 @@ const courseSchema = new mongoose.Schema({
     required: true,
     min: 10,
     max: 200,
+    get: (v: number) => Math.round(v),
+    set: (v: number) => Math.round(v),
   },
 });
 
@@ -46,19 +51,19 @@ const Course = mongoose.model("Course", courseSchema);
 
 const createCourse = async () => {
   const course = new Course({
-    name: "react",
+    name: "blockchain",
     author: "Islom",
-    tags: null,
+    tags: ["web3", "nft"],
     isPublished: true,
-    price: 20,
-    category: "-",
+    price: 50.7,
+    category: " Web ",
   });
 
   try {
     const result = await course.save();
     console.log(result);
   } catch (ex: any) {
-    for(const field in ex.errors) {
+    for (const field in ex.errors) {
       console.log(ex.errors[field].message);
     }
   }
