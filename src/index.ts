@@ -9,11 +9,28 @@ mongoose
   .catch((err: any) => console.log(err));
 
 const courseSchema = new mongoose.Schema({
-  name: { type: String, required: true },
+  name: {
+    type: String,
+    required: true,
+    minlength: 5,
+    maxlength: 255,
+    // match: /pattern/i,
+  },
+  category: {
+    type: String,
+    required: true,
+    enum: ["web", "mobile", "network"],
+  },
   author: String,
   tags: [String],
   date: { type: Date, default: Date.now },
   isPublished: Boolean,
+  price: {
+    type: Number,
+    required: true,
+    min: 10,
+    max: 200
+  },
 });
 
 // creating class model and its instance
@@ -21,10 +38,12 @@ const Course = mongoose.model("Course", courseSchema);
 
 const createCourse = async () => {
   const course = new Course({
-    // name: "react",
+    name: "react",
     author: "Islom",
     tags: ["react", "frontend"],
     isPublished: true,
+    price: 20, 
+    category: '-'
   });
 
   try {
