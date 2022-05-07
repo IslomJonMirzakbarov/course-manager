@@ -9,7 +9,7 @@ mongoose
   .catch((err: any) => console.log(err));
 
 const courseSchema = new mongoose.Schema({
-  name: String,
+  name: { type: String, required: true },
   author: String,
   tags: [String],
   date: { type: Date, default: Date.now },
@@ -21,28 +21,25 @@ const Course = mongoose.model("Course", courseSchema);
 
 const createCourse = async () => {
   const course = new Course({
-    name: "react",
+    // name: "react",
     author: "Islom",
     tags: ["react", "frontend"],
     isPublished: true,
   });
 
-  const result = await course.save();
-  console.log(result);
+  try {
+    const result = await course.save();
+    console.log(result);
+  } catch (ex: any) {
+    console.log(ex.message);
+  }
 };
 
 const getCourses = async () => {
-  // pagination
-  const pageNumber = 2;
-  const pageSize = 10;
-  // /api/courses?pageNumber=2?pageSize=10
-
-  const courses = await Course.find({ author: /.*Islom.*/i })
-    .skip((pageNumber - 1) * pageSize)
-    .limit(pageSize)
-    .sort({ name: 1 })
-    .count();
+  const courses = await Course.find({ author: /.*Islom.*/i }).sort({
+    name: -1,
+  });
   console.log(courses);
 };
 
-getCourses();
+createCourse();
