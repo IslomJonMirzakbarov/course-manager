@@ -1,4 +1,4 @@
-# Mon-Net
+# CourseManagerAPI
 
 This is a sample project for a simple CRUD API using Node.js, Express, and MongoDB. It is written in TypeScript.
 
